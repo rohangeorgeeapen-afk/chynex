@@ -64,7 +64,7 @@
             top: 0;
             left: 0;
             right: 0;
-            padding: 8px 30px; 
+            padding: 16px 40px; 
             z-index: 70; 
             opacity: 0;
             pointer-events: none;
@@ -73,6 +73,9 @@
             will-change: opacity;
             transform: translateZ(0);
             backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            height: 70px;
         }
 
         .main-header::after {
@@ -98,10 +101,10 @@
         }
 
         .header-logo {
-            width: 110px; 
+            width: 140px; 
             height: auto;
             filter: invert(1);
-            vertical-align: middle; 
+            display: block;
         }
         /* --- End New Header Bar --- */
 
@@ -158,7 +161,7 @@
 
         .content {
             max-width: 720px;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 400;
             text-align: left;
             letter-spacing: 0.01em;
@@ -216,7 +219,7 @@
 
         .footer-content {
             text-align: left; 
-            font-size: 0.85rem; 
+            font-size: 1rem; 
             line-height: 1.8;
             color: #b8b8b8;
             letter-spacing: 0.02em; 
@@ -235,7 +238,7 @@
         */
 
         .founder-name {
-            font-size: 1rem; 
+            font-size: 1.125rem; 
             color: #ffffff;
             font-weight: 500;
             margin-bottom: 0.25em; /* Reduced spacing */
@@ -243,7 +246,7 @@
         }
 
         .founder-title {
-            font-size: 0.85rem; 
+            font-size: 1rem; 
             color: #d4d4d4;
             margin-bottom: 0.25em; /* Reduced spacing */
         }
@@ -255,7 +258,7 @@
 
         /* Renamed from .footer-email */
         .footer-link {
-            font-size: 0.9rem; 
+            font-size: 1rem; 
             color: #ffffff;
             text-decoration: none;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -280,13 +283,22 @@
         /* --- NEW: Copyright text style --- */
         .copyright-text {
             color: #aaa;
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             letter-spacing: 0.02em;
             margin-top: 1.5em; /* Reduced spacing */
             line-height: 1.6;
         }
 
         @media (max-width: 768px) {
+            .main-header {
+                padding: 12px 20px;
+                height: 60px;
+            }
+
+            .header-logo {
+                width: 100px;
+            }
+
             .hero {
                 height: 100vh;
             }
@@ -301,7 +313,7 @@
             }
 
             .content {
-                font-size: 0.95rem;
+                font-size: 1.0625rem;
             }
 
             .footer-section {
@@ -311,14 +323,23 @@
 
             .footer-content {
                 max-width: 100%; 
+                font-size: 0.9375rem;
             }
 
             .founder-name {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
 
             .founder-title {
-                font-size: 0.8rem;
+                font-size: 0.9375rem;
+            }
+
+            .footer-link {
+                font-size: 0.9375rem;
+            }
+
+            .copyright-text {
+                font-size: 0.8125rem;
             }
         }
         
