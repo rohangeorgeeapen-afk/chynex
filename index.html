@@ -13,35 +13,35 @@
 
         /* --- Seamless Fading & Gradient Blur Edges --- */
         /* 1. VIGNETTE (on HTML) */
-        html::before,
-        html::after {
+        html::before {
             content: '';
             position: fixed;
+            top: 0;
             left: 0;
             right: 0;
             z-index: 60; /* Above content (50), below header (70) */
-            height: 200px;
+            height: 150px;
             pointer-events: none;
-        }
-        
-        html::before {
-            top: 0;
             background: linear-gradient(to bottom, #000 0%, transparent 100%);
         }
 
-        html::after {
+        /* Bottom vignette on body to avoid mobile viewport issues */
+        body::after {
+            content: '';
+            position: fixed;
             bottom: 0;
-            background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%);
-            /* --- New: Added transition for smooth fade-out --- */
+            left: 0;
+            right: 0;
+            z-index: 60;
+            height: 150px;
+            pointer-events: none;
+            background: linear-gradient(to top, #000 0%, transparent 100%);
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
         }
         
-        /* Mobile-specific fix for address bar changes */
-        @supports (height: 100dvh) {
-            html::after {
-                height: 250px;
-            }
+        body.at-page-bottom::after {
+            opacity: 0;
         }
 
         /* --- REMOVED: 2. GRADIENT BLUR (on BODY) --- */
