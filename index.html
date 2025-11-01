@@ -138,9 +138,16 @@
                     drop-shadow(0 1px 0 rgba(255, 255, 255, 0.1))
                     drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) 
                     drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
-            will-change: transform, opacity, filter;
+            will-change: transform, opacity;
             transform: translateZ(0);
             backface-visibility: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo {
+                filter: invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+                will-change: transform, opacity;
+            }
         }
 
         .content-wrapper {
@@ -457,6 +464,7 @@
 
         let ticking = false;
         let lastScrollY = 0;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         function easeOutQuad(t) {
             return 1 - (1 - t) * (1 - t);
@@ -484,14 +492,22 @@
             const easeProgress = easeOutQuad(scrollProgress);
             const logoOpacity = Math.max(0, 1 - easeProgress);
 
-            const logoBlur = scrollProgress * 15;
             const logoRotation = scrollProgress * 3;
 
             const transformValue = `scale(${logoScale}) rotate(${logoRotation}deg) translateZ(0)`;
-            const filterValue = `invert(1) blur(${logoBlur}px) 
-                                 drop-shadow(0 1px 0 rgba(255, 255, 255, 0.1))
-                                 drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) 
-                                 drop-shadow(0 0 15px rgba(255, 255, 255, 0.15))`;
+            
+            // Simplified filter for mobile - no blur, reduced drop-shadows
+            let filterValue;
+            if (isMobile) {
+                const logoBlur = scrollProgress * 8; // Reduced blur
+                filterValue = `invert(1) blur(${logoBlur}px) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))`;
+            } else {
+                const logoBlur = scrollProgress * 15;
+                filterValue = `invert(1) blur(${logoBlur}px) 
+                             drop-shadow(0 1px 0 rgba(255, 255, 255, 0.1))
+                             drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) 
+                             drop-shadow(0 0 15px rgba(255, 255, 255, 0.15))`;
+            }
 
             if (heroLogo) {
                 heroLogo.style.transform = transformValue;
