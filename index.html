@@ -25,9 +25,8 @@
             background: linear-gradient(to bottom, #000 0%, transparent 100%);
         }
 
-        /* Bottom vignette on body to avoid mobile viewport issues */
-        body::after {
-            content: '';
+        /* Bottom vignette - will be positioned by JS on mobile */
+        .bottom-vignette {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -40,7 +39,7 @@
             transition: opacity 0.3s ease-in-out;
         }
         
-        body.at-page-bottom::after {
+        .bottom-vignette.hide {
             opacity: 0;
         }
 
@@ -417,6 +416,8 @@
         </div>
     </div>
 
+    <div class="bottom-vignette" id="bottomVignette"></div>
+
     <div class="content-wrapper">
         <div class="section">
             <div class="content">
@@ -468,10 +469,23 @@
         const heroLogo = document.getElementById('heroLogo');
         const header = document.getElementById('main-header');
         const paragraphs = document.querySelectorAll('.content p');
+        const bottomVignette = document.getElementById('bottomVignette');
 
         let ticking = false;
         let lastScrollY = 0;
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        // Update vignette position on viewport resize (handles address bar)
+        function updateVignettePosition() {
+            if (bottomVignette) {
+                const vh = window.innerHeight;
+                bottomVignette.style.bottom = '0px';
+            }
+        }
+
+        window.addEventListener('resize', updateVignettePosition);
+        window.addEventListener('orientationchange', updateVignettePosition);
+        updateVignettePosition();
 
         function easeOutQuad(t) {
             return 1 - (1 - t) * (1 - t);
@@ -560,9 +574,9 @@
             // At page bottom detection
             const { scrollHeight, clientHeight } = document.documentElement;
             if (scrollY + clientHeight >= scrollHeight - 5) {
-                document.body.classList.add('at-page-bottom');
+                if (bottomVignette) bottomVignette.classList.add('hide');
             } else {
-                document.body.classList.remove('at-page-bottom');
+                if (bottomVignette) bottomVignette.classList.remove('hide');
             }
 
             ticking = false;
