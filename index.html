@@ -134,7 +134,10 @@
         .hero-logo {
             width: 180px;
             height: auto;
-            filter: invert(1);
+            filter: invert(1) 
+                    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.1))
+                    drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) 
+                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
             will-change: transform, opacity, filter;
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -485,11 +488,16 @@
             const logoRotation = scrollProgress * 3;
 
             const transformValue = `scale(${logoScale}) rotate(${logoRotation}deg) translateZ(0)`;
-            const filterValue = `invert(1) blur(${logoBlur}px)`;
+            const filterValue = `invert(1) blur(${logoBlur}px) 
+                                 drop-shadow(0 1px 0 rgba(255, 255, 255, 0.1))
+                                 drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) 
+                                 drop-shadow(0 0 15px rgba(255, 255, 255, 0.15))`;
 
-            heroLogo.style.transform = transformValue;
-            heroLogo.style.filter = filterValue;
-            heroLogo.style.opacity = logoOpacity;
+            if (heroLogo) {
+                heroLogo.style.transform = transformValue;
+                heroLogo.style.filter = filterValue;
+                heroLogo.style.opacity = logoOpacity;
+            }
 
             if (logoOpacity <= 0) {
                 hero.classList.add('fade-out');
