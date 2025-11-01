@@ -20,7 +20,7 @@
             left: 0;
             right: 0;
             z-index: 60; /* Above content (50), below header (70) */
-            height: 150px;
+            height: 200px;
             pointer-events: none;
         }
         
@@ -31,10 +31,17 @@
 
         html::after {
             bottom: 0;
-            background: linear-gradient(to top, #000 0%, transparent 100%);
+            background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%);
             /* --- New: Added transition for smooth fade-out --- */
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Mobile-specific fix for address bar changes */
+        @supports (height: 100dvh) {
+            html::after {
+                height: 250px;
+            }
         }
 
         /* --- REMOVED: 2. GRADIENT BLUR (on BODY) --- */
